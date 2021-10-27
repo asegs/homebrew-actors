@@ -6,7 +6,12 @@ public abstract class GenericActor {
     private final LinkedBlockingQueue<Object> mailbox = new LinkedBlockingQueue<>();
     private boolean killed = false;
 
-    public abstract void receive(Object message);
+    public GenericActor(){
+        new Thread(this::handler).start();
+    }
+
+    //why is java so ornery about this, i don't want this to be callable by driver
+    protected abstract void receive(Object message);
 
     private void handler(){
         while (!killed || mailbox.size() > 0){
