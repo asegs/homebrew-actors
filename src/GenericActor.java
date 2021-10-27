@@ -1,5 +1,33 @@
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public abstract class GenericActor {
+    private final long afterlifeDuration = 100;
     private final LinkedBlockingQueue<Object> mailbox = new LinkedBlockingQueue<>();
+    private boolean killed = false;
+
+    public abstract void receive(Object message);
+
+    private void handler(){
+        while (!killed || mailbox.size() > 0){
+            try {
+                Object o = mailbox.poll(afterlifeDuration,TimeUnit.MILLISECONDS);
+                if (o != null){
+                    receive(o);
+                }
+            }catch (InterruptedException e){
+                killed = true;
+            }
+        }
+    }
+
+    public void poisonPill(){
+        killed = true;
+    }
+
+    public void tell(Object message){
+        mailbox.add(message);
+    }
+
+
 }
