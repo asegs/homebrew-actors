@@ -12,12 +12,12 @@ public abstract class GenericActor {
 
     //why is java so ornery about this, i don't want this to be callable by driver
     protected abstract void receive(Object message);
-    protected void die(){
-
-    }
+    protected void die(){}
+    protected void birth(){}
 
 
     private void handler(){
+        birth();
         while (!killed || mailbox.size() > 0){
             try {
                 Object o = mailbox.poll(afterlifeDuration,TimeUnit.MILLISECONDS);

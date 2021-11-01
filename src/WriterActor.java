@@ -20,4 +20,9 @@ public class WriterActor extends GenericActor{
     protected void die() {
         System.out.println("Killed.");
     }
+
+    @Override
+    protected void birth(){
+        System.out.println("Awakened.");
+    }
 }

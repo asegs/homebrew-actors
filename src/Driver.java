@@ -12,7 +12,7 @@ public class Driver {
             writers.get(i % WRITERS).tell("Hello: " + i);
         }
         for (int i = 0;i<WRITERS;i++){
-            writers.get(i % WRITERS).poisonPill();
+            writers.get(i).poisonPill();
         }
     }
 }
