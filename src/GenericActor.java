@@ -12,7 +12,9 @@ public abstract class GenericActor {
 
     //why is java so ornery about this, i don't want this to be callable by driver
     protected abstract void receive(Object message);
-    protected abstract void die();
+    protected void die(){
+
+    }
 
 
     private void handler(){
