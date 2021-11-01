@@ -12,6 +12,8 @@ public abstract class GenericActor {
 
     //why is java so ornery about this, i don't want this to be callable by driver
     protected abstract void receive(Object message);
+    protected abstract void die();
+
 
     private void handler(){
         while (!killed || mailbox.size() > 0){
@@ -24,6 +26,7 @@ public abstract class GenericActor {
                 killed = true;
             }
         }
+        die();
     }
 
     public void poisonPill(){
@@ -33,6 +36,4 @@ public abstract class GenericActor {
     public void tell(Object message){
         mailbox.add(message);
     }
-
-
 }
